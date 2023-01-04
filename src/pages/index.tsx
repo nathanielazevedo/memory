@@ -18,12 +18,16 @@ const IndexPage: NextPageWithLayout = () => {
     },
   );
 
-  const addPost = trpc.post.add.useMutation({
+  const addPost = trpc.words.add.useMutation({
     async onSuccess() {
       // refetches posts after a post is added
-      await utils.post.list.invalidate();
+      await utils.words.list.invalidate();
     },
   });
+
+  const getWords = trpc.words.list.useQuery();
+
+  console.log(getWords.data);
 
   // prefetch all posts for instant navigation
   // useEffect(() => {
@@ -90,11 +94,11 @@ const IndexPage: NextPageWithLayout = () => {
           e.preventDefault();
           const $form = e.currentTarget;
           const values = Object.fromEntries(new FormData($form));
-          type Input = inferProcedureInput<AppRouter['post']['add']>;
+          type Input = inferProcedureInput<AppRouter['words']['add']>;
           //    ^?
           const input: Input = {
-            title: values.title as string,
-            text: values.text as string,
+            known: values.title as string,
+            learning: values.text as string,
           };
           try {
             await addPost.mutateAsync(input);
