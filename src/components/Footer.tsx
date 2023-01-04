@@ -1,18 +1,18 @@
-import React from "react";
-import { Box, Slider, Stack, Typography } from "@mui/material";
+import React from 'react';
+import { Box, Slider, Stack, Typography } from '@mui/material';
 
 const Footer = () => {
   return (
     <Box
       sx={{
-        height: "50px",
-        width: "100%",
-        borderTop: "1px solid rgba(255, 255, 255, 0.12)",
-        justifySelf: "flex-end",
-        alignItems: "center",
-        display: "flex",
-        justifyContent: "space-between",
-        padding: "0 2rem",
+        height: '50px',
+        width: '100%',
+        borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+        justifySelf: 'flex-end',
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '0 2rem',
       }}
     >
       {/* <Typography>{deckName}</Typography>

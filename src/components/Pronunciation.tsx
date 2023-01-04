@@ -1,5 +1,5 @@
-import { Box, Button, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Button, Typography } from '@mui/material';
+import React, { useState } from 'react';
 
 const Alphabet = ({ words }: any) => {
   const [index, setIndex] = useState(0);
@@ -22,11 +22,11 @@ const Alphabet = ({ words }: any) => {
       mediaRecorder.start();
 
       const audioChunks: BlobPart[] | undefined = [];
-      mediaRecorder.addEventListener("dataavailable", (event) => {
+      mediaRecorder.addEventListener('dataavailable', (event) => {
         audioChunks.push(event.data);
       });
 
-      mediaRecorder.addEventListener("stop", () => {
+      mediaRecorder.addEventListener('stop', () => {
         const audioBlob = new Blob(audioChunks);
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
@@ -52,9 +52,9 @@ const Alphabet = ({ words }: any) => {
       {word[index]}
       <Button
         variant="outlined"
-        color={recording ? "error" : "primary"}
+        color={recording ? 'error' : 'primary'}
         onClick={() => record()}
-        sx={{ width: "300px", marginTop: "20px" }}
+        sx={{ width: '300px', marginTop: '20px' }}
       >
         Record
       </Button>

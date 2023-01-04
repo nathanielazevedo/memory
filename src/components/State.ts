@@ -1,4 +1,4 @@
-import { atom } from "jotai";
+import { atom } from 'jotai';
 
 export const sideNavState = atom(false);
 export const deckAtom = atom<any>(undefined);
