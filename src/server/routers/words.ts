@@ -24,7 +24,7 @@ export const wordsRouter = router({
     const items = await prisma.words.findMany({
       select: defaultPostSelect,
       take: 100,
-      where: {},
+      orderBy: [{ createdAt: 'asc' }],
     });
 
     return {
@@ -33,15 +33,50 @@ export const wordsRouter = router({
   }),
   add: publicProcedure
     .input(
+      z.array(
+        z.object({
+          known: z.string(),
+          learning: z.string(),
+        }),
+      ),
+    )
+    .mutation(async ({ input }) => {
+      const post = await prisma.words.createMany({
+        data: input,
+      });
+      return post;
+    }),
+  edit: publicProcedure
+    .input(
       z.object({
+        id: z.string(),
         known: z.string(),
         learning: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
-      const post = await prisma.words.create({
-        data: input,
-        select: defaultPostSelect,
+      const post = await prisma.words.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          known: input.known,
+          learning: input.learning,
+        },
+      });
+      return post;
+    }),
+  delete: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const post = await prisma.words.delete({
+        where: {
+          id: input.id,
+        },
       });
       return post;
     }),

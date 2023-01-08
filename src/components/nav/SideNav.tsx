@@ -1,7 +1,7 @@
 import * as React from 'react';
 // import { Titles } from "../../wordBank/Titles";
 import { useAtom } from 'jotai';
-import { sideNavState } from '../State';
+import { sideNavState, tabAtom } from '../State';
 import {
   Drawer as MuiDrawer,
   List,
@@ -13,6 +13,7 @@ import {
 
 const Drawer = ({ switchDeck }: { switchDeck: any }) => {
   const [sideNav, setSideNav] = useAtom(sideNavState);
+  const setTab = useAtom(tabAtom)[1];
   return (
     <MuiDrawer
       open={sideNav}
@@ -31,6 +32,7 @@ const Drawer = ({ switchDeck }: { switchDeck: any }) => {
             onClick={() => {
               switchDeck(text);
               setSideNav(false);
+              setTab('overview');
             }}
           >
             <ListItemButton>

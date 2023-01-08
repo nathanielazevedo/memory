@@ -19,17 +19,14 @@ const HelloChinese = () => {
   const [deck, setDeck] = useAtom(deckAtom);
   const [deckName, setDeckName] = useState('');
   const [volumne, setVolumne] = useState<number>(1);
-  const [initialRender, setInitialRender] = useState(true);
 
   const words = trpc.words.list.useQuery();
 
-  console.log(words);
   useEffect(() => {
     setDeck(words.data?.items);
-  }, [words.data?.items]);
+  }, [words]);
 
   const switchDeck = (text: string) => {
-    setInitialRender(false);
     setDeck(undefined);
     setTimeout(() => {
       setDeck([]);
@@ -39,31 +36,30 @@ const HelloChinese = () => {
 
   const backToHome = () => {
     setDeck(undefined);
-    setInitialRender(true);
+    setTab(undefined);
   };
 
   const getPage = () => {
-    if (deckName === 'Alphabet') {
-      return <AlphabetC words={deck} />;
+    console.log(tab);
+    if (!tab) return <Welcome />;
+    if (tab === 'game') {
+      return <Main />;
+    } else if (tab === 'spelling') {
+      return (
+        <Words
+          deck={deck}
+          deckName={deckName}
+          setVolumne={setVolumne}
+          volumne={volumne}
+        />
+      );
+    } else if (tab === 'planet') {
+      return <Patterns />;
     } else {
-      if (tab === 'game') {
-        return <Main />;
-      } else if (tab === 'spelling') {
-        return (
-          <Words
-            deck={deck}
-            deckName={deckName}
-            setVolumne={setVolumne}
-            volumne={volumne}
-          />
-        );
-      } else if (tab === 'planet') {
-        return <Patterns />;
-      } else {
-        return <Overview deck={deck} />;
-      }
+      return <Overview />;
     }
   };
+
   return (
     <>
       <TopNav backToHome={backToHome} />
@@ -76,8 +72,7 @@ const HelloChinese = () => {
           bottom: 0,
         }}
       >
-        {deck && getPage()}
-        {initialRender && !tab && <Welcome />}
+        {getPage()}
       </Box>
     </>
   );

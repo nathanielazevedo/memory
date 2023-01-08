@@ -32,7 +32,7 @@ const TopNav = ({ backToHome }: { backToHome: () => void }) => {
           onClick={() => setSideNav(true)}
           sx={{ cursor: 'pointer', color: 'rgb(255, 255, 255, 0.7)' }}
         />
-        {deck && (
+        {tab && (
           <div
             style={{
               display: 'flex',
@@ -67,7 +67,11 @@ const TopNav = ({ backToHome }: { backToHome: () => void }) => {
           </div>
         )}
       </div>
-      <VideogameAssetIcon fontSize="large" />
+      <VideogameAssetIcon
+        sx={{ cursor: 'pointer' }}
+        fontSize="large"
+        onClick={backToHome}
+      />
     </AppBar>
   ) : null;
 };
