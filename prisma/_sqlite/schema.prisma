@@ -9,7 +9,7 @@ datasource db {
 
 model Words {
   id       String @id @default(uuid())
+  created_at DateTime @default(now())
   known    String
   learning String
-  created_at DateTime @default(now())
 }

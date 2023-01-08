@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Words {
   id       String @id @default(uuid())
   created_at DateTime @default(now())
