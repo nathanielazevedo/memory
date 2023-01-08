@@ -23,7 +23,7 @@ const Ball = ({
         handleWrong();
         const sound = new Audio('./lose.wav');
         sound.volume = 0.1;
-        // sound.play();
+        sound.play();
       }
     },
   }));

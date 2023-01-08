@@ -29,14 +29,13 @@ export const colors = {
 
 const Patterns = () => {
   const deck = useAtom(deckAtom)[0];
-  const [playDeck, setPlayDeck] = useState(ld.cloneDeep(deck));
-  const [playing, setPlaying] = useState<boolean>(false);
-
   const [text, setText] = useState('');
   const setTab = useAtom(tabAtom)[1];
   const [showDialog, setShowDialog] = useState(false);
   const [difficulty, setDifficulty] = useState('easy');
+  const [playing, setPlaying] = useState<boolean>(false);
   const [showMenuDialog, setShowMenuDialog] = useState(true);
+  const [playDeck, setPlayDeck] = useState(ld.cloneDeep(deck));
   const [timer, setTimer] = useState<number | undefined>(undefined);
   const wordInfo = playDeck[0];
 
@@ -54,32 +53,32 @@ const Patterns = () => {
 
   const handleChange = (text: string) => {
     // word is right
-    if (text === wordInfo?.word?.english) {
+    if (text === wordInfo?.known) {
       setPlaying(false);
 
       setPlayDeck((o: any) => {
         o.shift();
+        // game is won
+        if (o.length == 0) {
+          setShowDialog(true);
+          const sound = new Audio('./win.wav');
+          sound.volume = 0.1;
+          sound.play();
+          return [];
+        } else {
+          // got the word right, but game is not over
+          const sound = new Audio('./good.wav');
+          sound.volume = 0.1;
+          sound.play();
+
+          setText('');
+          setTimeout(() => {
+            setPlaying(true);
+          }, 500);
+        }
         return [...o];
       });
-      // game is won
-      if (playDeck.length == 0) {
-        setShowDialog(true);
-        const sound = new Audio('./win.wav');
-        sound.volume = 0.1;
-        sound.play();
-        return;
-      }
-
-      // got the word right, but game is not over
-      const sound = new Audio('./good.wav');
-      sound.volume = 0.1;
-      sound.play();
-
-      setText('');
-      setTimeout(() => {
-        setPlaying(true);
-      }, 500);
-    }
+    } else setText(text);
   };
 
   // really starts game
@@ -145,7 +144,7 @@ const Patterns = () => {
       )}
       <div className="planet" />
       <TextField
-        onChange={(evt) => setText(evt.target.value)}
+        onChange={(evt) => handleChange(evt.target.value)}
         value={text}
         sx={{
           position: 'absolute',
@@ -156,7 +155,7 @@ const Patterns = () => {
           width: '500px',
           textAlign: 'center',
         }}
-      ></TextField>
+      />
       {showDialog && (
         <Dialog open>
           <DialogTitle>You won!</DialogTitle>
