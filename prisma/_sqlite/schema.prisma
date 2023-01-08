@@ -11,5 +11,5 @@ model Words {
   id       String @id @default(uuid())
   known    String
   learning String
-  createdAt DateTime @default(now())
+  created_at DateTime @default(now())
 }

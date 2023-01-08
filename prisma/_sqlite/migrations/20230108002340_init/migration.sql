@@ -1,11 +1,8 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Post` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- AlterTable
-ALTER TABLE "Words" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
-
--- DropTable
-DROP TABLE "Post";
+-- CreateTable
+CREATE TABLE "Words" (
+    "id" TEXT NOT NULL,
+    "known" TEXT NOT NULL,
+    "learning" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "Words_pkey" PRIMARY KEY ("id")
+);

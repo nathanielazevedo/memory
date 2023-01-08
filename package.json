@@ -9,7 +9,6 @@
     "generate-postgres": "prisma generate",
     "prisma-studio-sqlite": "prisma studio --schema=./prisma/_sqlite/schema.prisma",
     "prisma-studio-postgres": "prisma studio",
-    "db-seed": "prisma db seed",
     "db-reset": "prisma migrate reset",
     "dx:next": "run-s migrate-sqlite generate-sqlite && next dev",
     "dx:prisma-studio": "pnpm prisma-studio-sqlite",
@@ -29,9 +28,6 @@
     "test-dev": "start-server-and-test 'next dev' http://127.0.0.1:3000 test",
     "test-start": "start-server-and-test start http://127.0.0.1:3000 test",
     "postinstall": "prisma generate"
-  },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
   },
   "prettier": {
     "printWidth": 80,
