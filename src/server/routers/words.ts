@@ -24,7 +24,7 @@ export const wordsRouter = router({
     const items = await prisma.words.findMany({
       select: defaultPostSelect,
       take: 100,
-      orderBy: [{ createdAt: 'asc' }],
+      orderBy: [{ created_at: 'asc' }],
     });
 
     return {
